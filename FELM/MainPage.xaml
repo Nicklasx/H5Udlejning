@@ -61,6 +61,19 @@
                   Grid.Column="2"
             />
             <!-- List Event -->
+
+            <Label Name="UserLabel" 
+                   Content="Administrator" 
+                   Grid.Row="0" Grid.Column="1" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"
+                   FontSize="64"
+                   FontWeight="Bold" 
+                   Foreground="#FF3D79B5"
+                   >
+                   
+            </Label>
+
             <Border
                 Grid.Row="1"
                 Grid.Column="0"
@@ -84,7 +97,7 @@
                        VerticalAlignment="Stretch" 
                        LastChildFill="True" 
                        Margin="10,10,10,25">
-                <Label DockPanel.Dock="Top" Content="Events"  Foreground="#FF008D7A"  FontWeight="Bold" Height="Auto" Width="Auto"></Label>
+                <Label DockPanel.Dock="Top" Content="User Admin"  Foreground="#FF008D7A"  FontWeight="Bold" Height="Auto" Width="Auto"></Label>
 
                 <StackPanel DockPanel.Dock="Right" Margin="0,12" Width="111" HorizontalAlignment="Stretch">
 
@@ -96,7 +109,7 @@
                     Margin="15,10"
                     Background="#FF009B88">
 
-                        <Button Content="Add Event"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" Click="AddEvent_Click"></Button>
+                        <Button Content="Add User"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" Click="AddUser_Click" ></Button>
                     </Border>
 
                     <Border 
@@ -107,7 +120,7 @@
                     Margin="15,10"
                     Background="#FF009B88">
 
-                        <Button Content="Edit Event"  Background="#FF009B88" BorderBrush="Transparent"  Height="Auto" Width="Auto"></Button>
+                        <Button Content="Edit User"  Background="#FF009B88" BorderBrush="Transparent"  Height="Auto" Width="Auto"></Button>
                     </Border>
 
                     <Border 
@@ -118,7 +131,7 @@
                     Margin="15,10"
                     Background="#FF009B88">
 
-                        <Button Content="Delete Event"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" ></Button>
+                        <Button Content="Delete User"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" ></Button>
                     </Border>
                     <Border 
                     Padding="5" 
@@ -131,16 +144,9 @@
                         <Button Content="Add note"  Background="#FF009B88" BorderBrush="Transparent"  Height="Auto" Width="Auto"></Button>
                     </Border>
 
-
-
-
-
-
-
                 </StackPanel>
-
                 <StackPanel
-                    Name="EventListStack"
+                    Name="UserListStack"
                     Margin="5,5"  
                     DockPanel.Dock="Left" 
                     HorizontalAlignment="Stretch" 
@@ -149,20 +155,11 @@
 
                 </StackPanel>
             </DockPanel>
-
-            <StackPanel Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <Button Content="UserPage"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="Button_Click_1"/>
-                <Button Content="ScanPage"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="Button_Click_2"/>
-                <Button Content="EventPage" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="Button_Click"/>
-
-            </StackPanel>
-            <!-- When Add Event Button is pressed -->
-
             <Border
               
                 Grid.Row="1"
                 Grid.Column="1"
-                Name="AddEventBorderBox"
+                Name="AddUserBorderBox"
                 Padding="1" 
                 CornerRadius="25" 
                 BorderThickness="0" 
@@ -181,13 +178,13 @@
             <StackPanel Grid.Row="1" 
                         Grid.Column="1" 
                         Orientation="Vertical"
-                        Name="AddEventStackpanel"
+                        Name="AddUserStackpanel"
                         Visibility="Visible">
                 <!-- needs to be colapsed-->
 
 
-                <Label Name="AddEventHeader" 
-                       Content="Add Event" 
+                <Label Name="AddUserHeader" 
+                       Content="User" 
                        Foreground="#FF008D7A"
                        VerticalContentAlignment="Center" 
                        HorizontalContentAlignment="Center"
@@ -195,8 +192,8 @@
                        FontSize="24"
                        
                 />
-                <Label x:Name="EventName" 
-                       Content="Event Name:" 
+                <Label x:Name="UserName" 
+                       Content="User Name:" 
                        Foreground="#FF008D7A"
                        VerticalContentAlignment="Center" 
                        HorizontalContentAlignment="Left"
@@ -213,7 +210,7 @@
                     >
 
 
-                    <TextBox Name="EventNameTextBox"  
+                    <TextBox Name="USerNameTextBox"  
                              Background="Transparent" 
                              BorderThickness="0"
                              
@@ -237,13 +234,14 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
+                            
 
 
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="4*"/>
+                            
 
                         </Grid.RowDefinitions>
 
@@ -266,7 +264,7 @@
                         <DockPanel Grid.Column="0" Grid.Row="0">
                             <Label 
                                 Name="ContacName" 
-                                Content="Name:" 
+                                Content="Name:     " 
                                 Foreground="#FF008D7A"
                                 HorizontalContentAlignment="Left" 
                                 VerticalContentAlignment="Center"
@@ -283,90 +281,14 @@
                                 Background="White"
                                 Margin="0,5"
                                 >
-                                <TextBox Name="ContacNameTextBox"  BorderBrush="Transparent" ></TextBox>
+                                <TextBox Name="ContacUSerNameTextBox"  BorderBrush="Transparent" ></TextBox>
                             </Border>
                         </DockPanel>
-
-                        <DockPanel Grid.Column="1" Grid.Row="0">
-                            <Label 
-                                Name="ContaPhoneNr" 
-                                Content="Phone:" 
-                                Foreground="#FF008D7A"
-                                HorizontalContentAlignment="Left" 
-                                VerticalContentAlignment="Center"
-                                Margin="5,1"
-                                DockPanel.Dock="Left"
-                                 >
-                            </Label>
-                            <Border 
-                                Padding="5" 
-                                CornerRadius="5" 
-                                BorderThickness="1" 
-                                BorderBrush="LightGray" 
-                                SnapsToDevicePixels="True" 
-                                Background="White"
-                                Margin="0,5"
-                                >
-                                <TextBox Name="ContacPhoneNrTextBox" BorderBrush="Transparent" ></TextBox>
-                            </Border>
-                        </DockPanel>
-
-                        <!-- City and street-->
 
                         <DockPanel Grid.Column="0" Grid.Row="1">
                             <Label 
-                                Name="ContacCity" 
-                                Content="City:   " 
-                                Foreground="#FF008D7A"
-                                HorizontalContentAlignment="Left" 
-                                VerticalContentAlignment="Center"
-                                Margin="10,1"
-                                DockPanel.Dock="Left"
-                                 >
-                            </Label>
-                            <Border 
-                                Padding="5" 
-                                CornerRadius="5" 
-                                BorderThickness="1" 
-                                BorderBrush="LightGray" 
-                                SnapsToDevicePixels="True" 
-                                Background="White"
-                                 Margin="0,5"
-                                >
-                                <TextBox Name="ContacCityTextBox"  BorderBrush="Transparent" ></TextBox>
-                            </Border>
-                        </DockPanel>
-
-                        <DockPanel Grid.Column="1" Grid.Row="1">
-                            <Label 
-                                Name="ContactStreet" 
-                                Content="Street: " 
-                                Foreground="#FF008D7A"
-                                HorizontalContentAlignment="Left" 
-                                VerticalContentAlignment="Center"
-                                Margin="5,1"
-                                DockPanel.Dock="Left"
-                                 >
-                            </Label>
-                            <Border 
-                                Padding="5" 
-                                CornerRadius="5" 
-                                BorderThickness="1" 
-                                BorderBrush="LightGray" 
-                                SnapsToDevicePixels="True" 
-                                Background="White"
-                                Margin="0,5"
-                                >
-                                <TextBox Name="ConcatStreetTextBox" BorderBrush="Transparent" Height="18" VerticalAlignment="Bottom" ></TextBox>
-                            </Border>
-                        </DockPanel>
-
-                        <!-- Postal and Nr-->
-
-                        <DockPanel Grid.Column="0" Grid.Row="2">
-                            <Label 
-                                Name="ContactHouseNr" 
-                                Content="Nr:      " 
+                                Name="ContaPhoneNr" 
+                                Content="Phone:     " 
                                 Foreground="#FF008D7A"
                                 HorizontalContentAlignment="Left" 
                                 VerticalContentAlignment="Center"
@@ -383,38 +305,43 @@
                                 Background="White"
                                 Margin="0,5"
                                 >
-                                <TextBox Name="ContactNrTextBox"  BorderBrush="Transparent" ></TextBox>
+                                <TextBox Name="ContacUserPhoneNrTextBox" BorderBrush="Transparent" ></TextBox>
                             </Border>
                         </DockPanel>
 
-                        <DockPanel Grid.Column="1" Grid.Row="2">
-                            <Label 
-                                Name="ContacPostal" 
-                                Content="Postal: " 
-                                Foreground="#FF008D7A"
-                                HorizontalContentAlignment="Left" 
-                                VerticalContentAlignment="Center"
-                                Margin="5,1"
-                                DockPanel.Dock="Left"
-                                 >
-                            </Label>
-                            <Border 
-                                Padding="5" 
-                                CornerRadius="5" 
-                                BorderThickness="1" 
-                                BorderBrush="LightGray" 
-                                SnapsToDevicePixels="True" 
-                                Background="White"
-                                Margin="0,5"
-                                >
-                                <TextBox Name="ContactPostalTextBox" BorderBrush="Transparent" ></TextBox>
-                            </Border>
-                        </DockPanel>
 
                     </Grid>
 
-
                 </Grid>
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30">
+                    <Border
+              
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Name="AddEvntBorderBox"
+                        Padding="1" 
+                        CornerRadius="25" 
+                        BorderThickness="0" 
+                        BorderBrush="#FF008D7A" 
+                        SnapsToDevicePixels="True"
+                        Background="#FF002657"
+                        Opacity="0.5"
+                        >
+
+
+                        <Border.Effect>
+                            <DropShadowEffect></DropShadowEffect>
+                        </Border.Effect>
+                    </Border>
+                    <!--CheckBox for Normal User or admin-->
+                    <StackPanel Margin="10" HorizontalAlignment="Center">
+                        <Label FontWeight="Bold" Foreground="#FF009B88" Content="User Rights" HorizontalAlignment="Center"></Label>
+                        <CheckBox Name="AdminChechBOx" Foreground="#FF009B88" Content="Administrator" ></CheckBox>
+                        <CheckBox Name="UserCheckBox" Foreground="#FF009B88" Content="User" ></CheckBox>
+
+                    </StackPanel>
+                </Grid>
+               
                 <Border 
                     
                     Padding="5" 
@@ -424,10 +351,18 @@
                     Margin="15,10"
                     Background="#FF009B88">
 
-                    <Button Content="Summit"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" Click="SummitEvent_Click"></Button>
+                    <Button Content="Summit"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" Click="SummitUser_Click" ></Button>
                 </Border>
 
             </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Button Content="UserPage"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="Button_Click_1"/>
+                <Button Content="ScanPage"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="Button_Click_2"/>
+                <Button Content="EventPage" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="Button_Click"/>
+            </StackPanel>
+       
+        
         </Grid>
     </Grid>
 </Page>

@@ -98,3 +98,6 @@ C:\Users\Bjorn__Valhalla\Desktop\H5\FEMU\FELM\obj\Debug\FELM.csproj.GenerateReso
 C:\Users\Bjorn__Valhalla\Desktop\H5\FEMU\FELM\obj\Debug\FELM.csproj.CoreCompileInputs.cache
 C:\Users\Bjorn__Valhalla\Desktop\H5\FEMU\FELM\obj\Debug\FELM.exe
 C:\Users\Bjorn__Valhalla\Desktop\H5\FEMU\FELM\obj\Debug\FELM.pdb
+C:\Users\Bjorn__Valhalla\Desktop\H5\FEMU\FELM\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Bjorn__Valhalla\Desktop\H5\FEMU\FELM\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Bjorn__Valhalla\Desktop\H5\FEMU\FELM\obj\Debug\FELM.csproj.CopyComplete

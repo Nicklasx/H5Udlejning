@@ -12,6 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//api things\/
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Configuration;
+using System.Net.Http.Headers;
+using System.Text.RegularExpressions;
 
 namespace FELM
 {
@@ -22,8 +28,9 @@ namespace FELM
     public partial class MainPage : Page
     {
         
+        List<UserToList> usertolist = new List<UserToList>();
 
-        List<EventToList> eventtolist = new List<EventToList>();
+
         public MainPage()
         {
             InitializeComponent();
@@ -45,94 +52,127 @@ namespace FELM
             NavigationService.Navigate(Pages.p2);
         }
 
-        private void AddEvent_Click(object sender, RoutedEventArgs e)
+        private void SummitUser_Click(object sender, RoutedEventArgs e)
         {
-            AddEventBorderBox.Visibility = Visibility.Visible;
-            AddEventStackpanel.Visibility = Visibility.Visible; 
+           
 
             
+            var regexItem = new Regex("^[a-zA-Z0-9]*$");//Check id chars in username is within the given specs
+
+            string WithoutspicialChars = USerNameTextBox.Text;
+
+
+
+
+
+
+            //controles if the checkbox for admin or user in null and witch one it is
+            if (AdminChechBOx.IsChecked == true || UserCheckBox.IsChecked == true)
+            {
+                if (AdminChechBOx.IsChecked == true && UserCheckBox.IsChecked == false) 
+                {
+                    MessageBox.Show("congrats you are an admin");
+                    runRest();
+                    
+                }
+                else if (AdminChechBOx.IsChecked == true && UserCheckBox.IsChecked == true)
+                {
+                    MessageBox.Show("User cant have 2 roles, please uncheck a role");
+                }
+               
+                else
+                {
+                    MessageBox.Show("sucked it you are a normal user");
+                    runRest();
+                }
+            }
+            else
+            {
+                MessageBox.Show("There needs to be assigned a Role to the user");
+            }
+            
+            void runRest()// run if checkbox  controle is in order
+            {
+                if (regexItem.IsMatch(WithoutspicialChars))// checkes there are no special chars in Username
+                {
+                    Button button = new Button() { Content = USerNameTextBox.Text, }; // Creating button
+
+
+                    button.Click += EditUser_Click; //Hooking up to User
+                    UserListStack.Children.Add(button); //Adding to Stackpanel
+
+                    var bc = new BrushConverter();
+                    button.Background = (Brush)bc.ConvertFrom("#FF009B88"); //BackGround color for NEw button
+
+                    string WithoutWhitespace = WithoutspicialChars.Replace(" ", "");// remove Whitepace
+
+                    button.Name = WithoutWhitespace;
+
+                    usertolist.Add(new UserToList() { EventName = USerNameTextBox.Text, Name = ContacUSerNameTextBox.Text, Phone = ContacUserPhoneNrTextBox.Text });
+
+                    USerNameTextBox.Clear();
+                    ContacUSerNameTextBox.Clear();
+                    ContacUserPhoneNrTextBox.Clear();
+
+                    AddUserBorderBox.Visibility = Visibility.Collapsed;
+                    AddUserStackpanel.Visibility = Visibility.Collapsed;
+                    AdminChechBOx.IsChecked = false;
+                    UserCheckBox.IsChecked = false;
+                }
+                else
+                {
+                    MessageBox.Show("User Name cannot contain special Chareters or space");
+                }
+            }
+
+
+            
+
+           
+           
         }
-        private void EditEvent_Click(object sender, RoutedEventArgs e)
+        private void EditUser_Click(object sender, RoutedEventArgs e)
         {
-            AddEventBorderBox.Visibility = Visibility.Visible;
-            AddEventStackpanel.Visibility = Visibility.Visible;
+            AddUserBorderBox.Visibility = Visibility.Visible;
+            AddUserStackpanel.Visibility = Visibility.Visible;
             Button button = sender as Button;
-            
-            string arr = button.Name;
-            //int i = eventtolist.IndexOf();
 
-            foreach (var item in eventtolist)
+            string arr = button.Name;
+           
+
+            foreach (var item in usertolist)
             {
                 if (button.Name == item.EventName)
                 {
-                    EventNameTextBox.Text = item.EventName;
-                    ContacNameTextBox.Text = item.Name;
-                    ContacPhoneNrTextBox.Text = item.Phone;
-                    ContacCityTextBox.Text = item.City;
-                    ConcatStreetTextBox.Text = item.Street;
-                    ContactNrTextBox.Text = item.Nr;
-                    ContactPostalTextBox.Text = item.Postal;
+                    USerNameTextBox.Text = item.EventName;
+                    ContacUSerNameTextBox.Text = item.Name;
+                    ContacUserPhoneNrTextBox.Text = item.Phone;
 
-                    
                 }
-               
-               
+
             }
         }
 
-
-        int Eventcounter = 0;
-        private void SummitEvent_Click(object sender, RoutedEventArgs e)
+        private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-
-
-
-
-                        AddEventBorderBox.Visibility = Visibility.Collapsed;
-                        AddEventStackpanel.Visibility = Visibility.Collapsed;
-
-
-                        Button button = new Button() { Content = EventNameTextBox.Text, }; // Creating button
-
-
-                        button.Click += EditEvent_Click; //Hooking up to event
-                        EventListStack.Children.Add(button); //Adding to Stackpanel
-
-                        var bc = new BrushConverter();
-                        button.Background = (Brush)bc.ConvertFrom("#FF009B88");
-
-                        string WithoutWhitespace = EventNameTextBox.Text;
-                        WithoutWhitespace = WithoutWhitespace.Replace(' ', '_');
-                        button.Name = WithoutWhitespace;
-
-                        eventtolist.Add(new EventToList() { EventName = EventNameTextBox.Text, Name = ContacNameTextBox.Text, Phone = ContacPhoneNrTextBox.Text, City = ContacCityTextBox.Text, Street = ConcatStreetTextBox.Text, Nr = ContactNrTextBox.Text, Postal = ContactPostalTextBox.Text, EventCounterId = Eventcounter });
-
-                        EventNameTextBox.Clear();
-                        ContacNameTextBox.Clear();
-                        ContacPhoneNrTextBox.Clear();
-                        ContacCityTextBox.Clear();
-                        ConcatStreetTextBox.Clear();
-                        ContactNrTextBox.Clear();
-                        ContactPostalTextBox.Clear();
-                        Eventcounter = Eventcounter + 1;
-
+            AddUserBorderBox.Visibility = Visibility.Visible;
+            AddUserStackpanel.Visibility = Visibility.Visible;
         }
+
+       
     }
-    class EventToList
+    class UserToList
     {
-        private string _Eventname;
+        private string _Username;
         private string _Name;
         private string _Phone;
-        private string _City;
-        private string _Street;
-        private string _Nr;
-        private string _Postal;
-        private int _EventCounterId;
+        
+
 
         public string EventName
         {
-            get { return _Eventname; }
-            set { _Eventname = value; }
+            get { return _Username; }
+            set { _Username = value; }
         }
         public string Name
         {
@@ -144,52 +184,11 @@ namespace FELM
             get { return _Phone; }
             set { _Phone = value; }
         }
-        public string City
-        {
-            get { return _City; }
-            set { _City = value; }
-        }
-        public string Street
-        {
-            get { return _Street; }
-            set { _Street = value; }
-        }
-        public string Nr
-        {
-            get { return _Nr; }
-            set { _Nr = value; }
-        }
-        public string Postal
-        {
-            get { return _Postal; }
-            set { _Postal = value; }
-        }
-        public int EventCounterId
-        {
-            get { return _EventCounterId; }
-            set { _EventCounterId = value; }
-        }
-
-
-
-        public EventToList()
-        {
-
-        }
-
-        /*public EventToList(string Event, string Name, string Phone, string City, string Street, string Nr, string Postal)
-        {
-            this._Eventname = Event;
-            this._Name = Name;
-            this._Phone = Phone;
-            this._City = City;
-            this._Street = Street;
-            this._Nr = Nr;
-            this._Postal = Postal;
-
-        }*/
- 
-
 
     }
+
+
+
+
 }
+
