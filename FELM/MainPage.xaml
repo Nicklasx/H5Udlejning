@@ -375,7 +375,7 @@
                     Margin="15,10"
                     Background="#FF009B88">
 
-                    <Button Content="Summit"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" Click="SummitUser_Click" ></Button>
+                    <Button Content="Submit"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" Click="SummitUser_Click" ></Button>
                 </Border>
 
             </StackPanel>

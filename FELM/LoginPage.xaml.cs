@@ -114,7 +114,6 @@ namespace FELM
                
                 var jsonString = await response.Content.ReadAsStringAsync();
                 var json = (JObject)JsonConvert.DeserializeObject(jsonString);
-               
                 return json.Value<string>("status");
 
             }

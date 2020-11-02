@@ -18,6 +18,10 @@ using System.Net.Http;
 using System.Configuration;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography.X509Certificates;
+using Newtonsoft.Json.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace FELM
 {
@@ -34,7 +38,94 @@ namespace FELM
         public MainPage()
         {
             InitializeComponent();
+            Loaded += (new RoutedEventHandler(createUserBtn));
+        }
+        public async void createUserBtn(object sender, RoutedEventArgs e)
+        {
+            string[] svar = (string[])await selectUser("selectUsers");
             
+            for(int i = 0; i < svar.Length; i++)
+            {
+                Button button = new Button()
+                {
+                    //Content = USerNameTextBox.Text, 
+                    Content = svar[i]
+
+                }; // Creating button
+
+
+                button.Click += EditUser_Click; //Hooking up to User
+                UserListStack.Children.Add(button); //Adding to Stackpanel
+
+                var bc = new BrushConverter();
+                button.Background = (Brush)bc.ConvertFrom("#FF009B88"); //BackGround color for NEw button
+
+                string WithoutWhitespace = svar[i].Replace(" ", "");// remove Whitepace
+
+                button.Name = WithoutWhitespace;
+
+                //usertolist.Add(new UserToList() { EventName = USerNameTextBox.Text, Name = ContacUSerNameTextBox.Text, Phone = ContacUserPhoneNrTextBox.Text });
+
+                USerNameTextBox.Clear();
+                ContacUSerNameTextBox.Clear();
+                ContacUserPhoneNrTextBox.Clear();
+
+                AddUserBorderBox.Visibility = Visibility.Collapsed;
+                AddUserStackpanel.Visibility = Visibility.Collapsed;
+                AdminChechBOx.IsChecked = false;
+                UserCheckBox.IsChecked = false;
+            }
+            
+        }
+        public class getUsers
+        {
+            private string _Function;
+
+            public string function
+            {
+                get { return _Function; }
+                set { _Function = value; }
+            }
+        }
+        public async Task<object> selectUser(string function)
+        {
+            HttpClient client = new HttpClient();
+            string apiUrl = ConfigurationManager.AppSettings["Api"];
+            client.BaseAddress = new Uri(apiUrl);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            getUsers users = new getUsers();
+            users.function = function;
+
+            var serializedProduct = JsonConvert.SerializeObject(users);
+
+            var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PostAsync(apiUrl, content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+
+                var jsonString = await response.Content.ReadAsStringAsync();
+                dynamic json = (JObject)JsonConvert.DeserializeObject(jsonString);
+                //var json = JObject.Parse(jsonString);
+                int count = json.usernames.Count;
+                
+                string[] allNames = new string[count];
+                int i = 0;
+                while(i < count)
+                {
+                    string test = json.usernames[i];
+                    allNames[i] = test;
+                    i++;
+                    //return usernames[i];
+                }
+                return allNames;
+
+            }
+            else
+            {
+
+                return false;
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -71,6 +162,8 @@ namespace FELM
             {
                 if (AdminChechBOx.IsChecked == true && UserCheckBox.IsChecked == false) 
                 {
+                    //insert admin
+                    insertAdmin("createUser", USerNameTextBox.Text, UserPassswordTextBox.Text, ContacUSerNameTextBox.Text, ContacUserPhoneNrTextBox.Text, (bool)AdminChechBOx.IsChecked);
                     MessageBox.Show("congrats you are an admin");
                     runRest();
                     
@@ -82,6 +175,9 @@ namespace FELM
                
                 else
                 {
+                    //insert normal user
+
+                    insertNormal("createUser", USerNameTextBox.Text, UserPassswordTextBox.Text, ContacUSerNameTextBox.Text, ContacUserPhoneNrTextBox.Text, (bool)UserCheckBox.IsChecked);
                     MessageBox.Show("sucked it you are a normal user");
                     runRest();
                 }
@@ -95,7 +191,12 @@ namespace FELM
             {
                 if (regexItem.IsMatch(WithoutspicialChars))// checkes there are no special chars in Username
                 {
-                    Button button = new Button() { Content = USerNameTextBox.Text, }; // Creating button
+                    var svar = users("selectOneUser", USerNameTextBox.Text);
+                    Button button = new Button() {
+                        //Content = USerNameTextBox.Text, 
+                        Content = svar.Result.ToString()
+                        
+                    }; // Creating button
 
 
                     button.Click += EditUser_Click; //Hooking up to User
@@ -108,7 +209,7 @@ namespace FELM
 
                     button.Name = WithoutWhitespace;
 
-                    usertolist.Add(new UserToList() { EventName = USerNameTextBox.Text, Name = ContacUSerNameTextBox.Text, Phone = ContacUserPhoneNrTextBox.Text });
+                    //usertolist.Add(new UserToList() { EventName = USerNameTextBox.Text, Name = ContacUSerNameTextBox.Text, Phone = ContacUserPhoneNrTextBox.Text });
 
                     USerNameTextBox.Clear();
                     ContacUSerNameTextBox.Clear();
@@ -124,13 +225,170 @@ namespace FELM
                     MessageBox.Show("User Name cannot contain special Chareters or space");
                 }
             }
-
-
-            
-
-           
-           
         }
+
+        public class insertUser
+        {
+            private string _Function;
+            private string _Username;
+            private string _Password;
+            private string _Name;
+            private string _Phone;
+            private string _Type;
+
+            public string function
+            {
+                get { return _Function; }
+                set { _Function = value; }
+            }
+            public string username
+            {
+                get { return _Username; }
+                set { _Username = value; }
+            }
+            public string password
+            {
+                get { return _Password; }
+                set { _Password = value; }
+            }
+            public string name
+            {
+                get { return _Name; }
+                set { _Name = value; }
+            }
+            public string phone
+            {
+                get { return _Phone; }
+                set { _Phone = value; }
+            }
+            public string type
+            {
+                get { return _Type; }
+                set { _Type = value; }
+            }
+        }
+        public async Task<object> insertAdmin(string function, string username, string password, string name, string phone, bool type)
+        {
+            HttpClient client = new HttpClient();
+            string apiUrl = ConfigurationManager.AppSettings["Api"];
+            client.BaseAddress = new Uri(apiUrl);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            insertUser insert = new insertUser();
+            insert.function = function;
+            insert.username = username;
+            insert.password = password;
+            insert.name = name;
+            insert.phone = phone;
+            if(type == true)
+            {
+                insert.type = "1";
+            }
+            
+            var serializedProduct = JsonConvert.SerializeObject(insert);
+
+            var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PostAsync(apiUrl, content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var json = (JObject)JsonConvert.DeserializeObject(jsonString);
+                MessageBox.Show(json.Value<string>("status"));
+                return json.Value<string>("status");
+
+            }
+            else
+            {
+
+                return false;
+            }
+        }
+        public async Task<object> insertNormal(string function, string username, string password, string name, string phone, bool type)
+        {
+            HttpClient client = new HttpClient();
+            string apiUrl = ConfigurationManager.AppSettings["Api"];
+            client.BaseAddress = new Uri(apiUrl);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            insertUser insert = new insertUser();
+            insert.function = function;
+            insert.username = username;
+            insert.password = password;
+            insert.name = name;
+            insert.phone = phone;
+            if (type == true)
+            {
+                insert.type = "0";
+            }
+
+            var serializedProduct = JsonConvert.SerializeObject(insert);
+
+            var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PostAsync(apiUrl, content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var json = (JObject)JsonConvert.DeserializeObject(jsonString);
+                MessageBox.Show(json.Value<string>("status"));
+                return json.Value<string>("status");
+
+            }
+            else
+            {
+
+                return false;
+            }
+        }
+
+        public class getOneUser
+        {
+            private string _Function;
+            private string _Username;
+
+            public string function
+            {
+                get { return _Function; }
+                set { _Function = value; }
+            }
+            public string username
+            {
+                get { return _Username; }
+                set { _Username = value; }
+            }
+        }
+        public async Task<object> users(string function, string username)
+        {
+            HttpClient client = new HttpClient();
+            string apiUrl = ConfigurationManager.AppSettings["Api"];
+            client.BaseAddress = new Uri(apiUrl);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            getOneUser user = new getOneUser();
+            user.function = function;
+            user.username = username;
+
+            var serializedProduct = JsonConvert.SerializeObject(user);
+
+            var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PostAsync(apiUrl, content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var json = (JObject)JsonConvert.DeserializeObject(jsonString);
+                MessageBox.Show(json.Value<string>("username"));
+                return json.Value<string>("username");
+
+            }
+            else
+            {
+
+                return false;
+            }
+        }
+
         private void EditUser_Click(object sender, RoutedEventArgs e)
         {
             AddUserBorderBox.Visibility = Visibility.Visible;
