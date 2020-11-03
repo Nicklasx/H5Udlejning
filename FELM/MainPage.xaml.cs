@@ -64,7 +64,15 @@ namespace FELM
 
                 button.Name = WithoutWhitespace;
 
-                //usertolist.Add(new UserToList() { EventName = USerNameTextBox.Text, Name = ContacUSerNameTextBox.Text, Phone = ContacUserPhoneNrTextBox.Text });
+                for(int j = 0; j < svar.Length; j++)
+                {   
+                    string username = svar[j];
+                    string name = (string)await selectInfo("selectInfo", username, "name");
+                    string password = (string)await selectInfo("selectInfo", username, "password");
+                    string phone = (string)await selectInfo("selectInfo", username, "phone");
+                    usertolist.Add(new UserToList() { EventName = username, Name = name, Phone = phone, Password = password });
+                }
+                //usertolist.Add(new UserToList() { EventName = users("selectOneUser", ), Name = ContacUSerNameTextBox.Text, Phone = ContacUserPhoneNrTextBox.Text });
 
                 USerNameTextBox.Clear();
                 ContacUSerNameTextBox.Clear();
@@ -76,6 +84,59 @@ namespace FELM
                 UserCheckBox.IsChecked = false;
             }
             
+        }
+        public class Info
+        {
+            private string _Function;
+            private string _Username;
+            private string _Info;
+
+            public string function
+            {
+                get { return _Function; }
+                set { _Function = value; }
+            }
+            public string username
+            {
+                get { return _Username; }
+                set { _Username = value; }
+            }
+            public string info
+            {
+                get { return _Info; }
+                set { _Info = value; }
+            }
+        }
+        public async Task<object> selectInfo(string function, string username, string info)
+        {
+            HttpClient client = new HttpClient();
+            string apiUrl = ConfigurationManager.AppSettings["Api"];
+            client.BaseAddress = new Uri(apiUrl);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Info getInfo = new Info();
+            getInfo.function = function;
+            getInfo.username = username;
+            getInfo.info = info;
+
+            var serializedProduct = JsonConvert.SerializeObject(getInfo);
+
+            var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PostAsync(apiUrl, content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var json = (JObject)JsonConvert.DeserializeObject(jsonString);
+                //MessageBox.Show(json.Value<string>("info"));
+                return json.Value<string>("info");
+
+            }
+            else
+            {
+
+                return false;
+            }
         }
         public class getUsers
         {
@@ -187,29 +248,41 @@ namespace FELM
                 MessageBox.Show("There needs to be assigned a Role to the user");
             }
             
-            void runRest()// run if checkbox  controle is in order
+            async void runRest()// run if checkbox  controle is in order
             {
                 if (regexItem.IsMatch(WithoutspicialChars))// checkes there are no special chars in Username
                 {
-                    var svar = users("selectOneUser", USerNameTextBox.Text);
-                    Button button = new Button() {
+                    var svar = await users("selectOneUser", USerNameTextBox.Text);
+                    
+                        Button button = new Button() {
                         //Content = USerNameTextBox.Text, 
-                        Content = svar.Result.ToString()
+                        Content = svar.ToString()
                         
                     }; // Creating button
 
-
+                    string test = svar.ToString();
                     button.Click += EditUser_Click; //Hooking up to User
+                    if (button.Name.Contains(test))
+                    {
+                        MessageBox.Show("har vi");
+                    }
+                    else
+                    {
+                        MessageBox.Show("har vi ikke");
+                    }
                     UserListStack.Children.Add(button); //Adding to Stackpanel
 
                     var bc = new BrushConverter();
                     button.Background = (Brush)bc.ConvertFrom("#FF009B88"); //BackGround color for NEw button
 
                     string WithoutWhitespace = WithoutspicialChars.Replace(" ", "");// remove Whitepace
-
+                    
                     button.Name = WithoutWhitespace;
-
-                    //usertolist.Add(new UserToList() { EventName = USerNameTextBox.Text, Name = ContacUSerNameTextBox.Text, Phone = ContacUserPhoneNrTextBox.Text });
+                        string username = svar.ToString();
+                        string name = (string)await selectInfo("selectInfo", username, "name");
+                        string password = (string)await selectInfo("selectInfo", username, "password");
+                        string phone = (string)await selectInfo("selectInfo", username, "phone");
+                        usertolist.Add(new UserToList() { EventName = username, Name = name, Phone = phone, Password = password });
 
                     USerNameTextBox.Clear();
                     ContacUSerNameTextBox.Clear();
@@ -403,6 +476,7 @@ namespace FELM
                 if (button.Name == item.EventName)
                 {
                     USerNameTextBox.Text = item.EventName;
+                    UserPassswordTextBox.Text = item.Password;
                     ContacUSerNameTextBox.Text = item.Name;
                     ContacUserPhoneNrTextBox.Text = item.Phone;
 
@@ -422,6 +496,7 @@ namespace FELM
     class UserToList
     {
         private string _Username;
+        private string _Password;
         private string _Name;
         private string _Phone;
         
@@ -431,6 +506,11 @@ namespace FELM
         {
             get { return _Username; }
             set { _Username = value; }
+        }
+        public string Password
+        {
+            get { return _Password; }
+            set { _Password = value; }
         }
         public string Name
         {

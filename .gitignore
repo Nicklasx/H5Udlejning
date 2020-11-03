@@ -251,3 +251,11 @@ FELM/obj/Debug/FELM_MarkupCompile.lref
 *.baml
 *.baml
 *.baml
+FELM/App.config
+.vs/FELM/v16/.suo
+FELM/bin/Debug/FELM.exe
+FELM/bin/Debug/FELM.pdb
+FELM/obj/Debug/DesignTimeResolveAssemblyReferences.cache
+FELM/obj/Debug/FELM.csprojAssemblyReference.cache
+FELM/obj/Debug/FELM.exe
+FELM/obj/Debug/FELM.pdb
