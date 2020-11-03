@@ -63,14 +63,7 @@ namespace FELM
                 string WithoutWhitespace = svar[i].Replace(" ", "");// remove Whitepace
 
                 button.Name = WithoutWhitespace;
-                for(int j = 0; j < svar.Length; j++)
-                {   
-                    string username = svar[j];
-                    string name = (string)await selectInfo("selectInfo", username, "name");
-                    string password = (string)await selectInfo("selectInfo", username, "password");
-                    string phone = (string)await selectInfo("selectInfo", username, "phone");
-                    usertolist.Add(new UserToList() { EventName = username, Name = name, Phone = phone, Password = password });
-                }
+                
                 //usertolist.Add(new UserToList() { EventName = users("selectOneUser", ), Name = ContacUSerNameTextBox.Text, Phone = ContacUserPhoneNrTextBox.Text });
 
                 USerNameTextBox.Clear();
@@ -82,7 +75,15 @@ namespace FELM
                 AdminChechBOx.IsChecked = false;
                 UserCheckBox.IsChecked = false;
             }
-            
+            for (int j = 0; j < svar.Length; j++)
+            {
+                string username = svar[j];
+                string name = (string)await selectInfo("selectInfo", username, "name");
+                string password = (string)await selectInfo("selectInfo", username, "password");
+                string phone = (string)await selectInfo("selectInfo", username, "phone");
+                usertolist.Add(new UserToList() { EventName = username, Name = name, Phone = phone, Password = password });
+            }
+
         }
 
         public class Info
