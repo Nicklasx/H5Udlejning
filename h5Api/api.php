@@ -21,8 +21,8 @@
             $username = $jsonData->username;
             $password = $jsonData->password;
             if($login = $this->route->verifyLogin($username, $password)) {
-                    // $output = array("status" => $login);
-                    echo json_encode($login);
+                    $output = array("status" => $login);
+                    echo json_encode($output);
             } else {
                 // set responce code - 404 Not found
                 http_response_code(404);
@@ -52,14 +52,55 @@
             }
         }
 
+        function selectOneUser() {
+            $this->dbConn();
+            $data = file_get_contents('php://input', true);
+            $jsonData =  json_decode($data);
+            $username = $jsonData->username;
+            if($select = $this->route->selectOneUser($username)) {
+                $output = array("username" => $select);
+                    echo json_encode($output);
+            } else {
+                // set responce code - 404 Not found
+                http_response_code(404);
+
+                // tell the user no users found
+                echo json_encode(
+                    array("message" => "failed to login.")
+                );
+            }
+        }
+
+        function selectInfo() {
+            $this->dbConn();
+            $data = file_get_contents('php://input', true);
+            $jsonData =  json_decode($data);
+            $username = $jsonData->username;
+            $info = $jsonData->info;
+            if($selectInfo = $this->route->selectInfo($username, $info)) {
+                $output = array("info" => $selectInfo);
+                    echo json_encode($output);
+            } else {
+                // set responce code - 404 Not found
+                http_response_code(404);
+
+                // tell the user no users found
+                echo json_encode(
+                    array("message" => "failed to login.")
+                );
+            }
+        }
+
         function createUser() {
             $this->dbConn();
             $data = file_get_contents('php://input', true);
             $jsonData =  json_decode($data);
             $username = $jsonData->username;
             $password = $jsonData->password;
+            $name = $jsonData->name;
+            $phone = $jsonData->phone;
             $type = $jsonData->type;
-            if($createUser = $this->route->createUser($username, $password, $type)) {
+            if($createUser = $this->route->createUser($username, $password, $name, $phone, $type)) {
                 $output = array("status" => $createUser);
                 echo json_encode($output);
             } else {
@@ -214,6 +255,12 @@ switch ($func) {
     case 'selectUsers':
         $funcList->selectUsers();
         break;
+    case 'selectOneUser':
+        $funcList->selectOneUser();
+        break;
+    case 'selectInfo':
+        $funcList->selectInfo();
+        break;
     case 'createUser':
         $funcList->createUser();
         break;
@@ -229,12 +276,12 @@ switch ($func) {
     case 'redigerEvent':
         $funcList->redigerEvent();
         break;
-        case 'deleteEvent':
-            $funcList->deleteEvent();
-            break;
-        case 'copyEvent':
-            $funcList->copyEvent();
-            break;
+    case 'deleteEvent':
+        $funcList->deleteEvent();
+        break;
+    case 'copyEvent':
+        $funcList->copyEvent();
+        break;
     default:
         # code...
         break;
