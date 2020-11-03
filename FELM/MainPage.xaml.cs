@@ -63,7 +63,6 @@ namespace FELM
                 string WithoutWhitespace = svar[i].Replace(" ", "");// remove Whitepace
 
                 button.Name = WithoutWhitespace;
-
                 for(int j = 0; j < svar.Length; j++)
                 {   
                     string username = svar[j];
@@ -85,6 +84,7 @@ namespace FELM
             }
             
         }
+
         public class Info
         {
             private string _Function;
@@ -225,7 +225,7 @@ namespace FELM
                 {
                     //insert admin
                     insertAdmin("createUser", USerNameTextBox.Text, UserPassswordTextBox.Text, ContacUSerNameTextBox.Text, ContacUserPhoneNrTextBox.Text, (bool)AdminChechBOx.IsChecked);
-                    MessageBox.Show("congrats you are an admin");
+                    MessageBox.Show("you created at admin user");
                     runRest();
                     
                 }
@@ -239,7 +239,7 @@ namespace FELM
                     //insert normal user
 
                     insertNormal("createUser", USerNameTextBox.Text, UserPassswordTextBox.Text, ContacUSerNameTextBox.Text, ContacUserPhoneNrTextBox.Text, (bool)UserCheckBox.IsChecked);
-                    MessageBox.Show("sucked it you are a normal user");
+                    MessageBox.Show("you created a normal user");
                     runRest();
                 }
             }
@@ -260,16 +260,7 @@ namespace FELM
                         
                     }; // Creating button
 
-                    string test = svar.ToString();
                     button.Click += EditUser_Click; //Hooking up to User
-                    if (button.Name.Contains(test))
-                    {
-                        MessageBox.Show("har vi");
-                    }
-                    else
-                    {
-                        MessageBox.Show("har vi ikke");
-                    }
                     UserListStack.Children.Add(button); //Adding to Stackpanel
 
                     var bc = new BrushConverter();
@@ -367,7 +358,7 @@ namespace FELM
 
                 var jsonString = await response.Content.ReadAsStringAsync();
                 var json = (JObject)JsonConvert.DeserializeObject(jsonString);
-                MessageBox.Show(json.Value<string>("status"));
+                //MessageBox.Show(json.Value<string>("status"));
                 return json.Value<string>("status");
 
             }
@@ -404,7 +395,7 @@ namespace FELM
 
                 var jsonString = await response.Content.ReadAsStringAsync();
                 var json = (JObject)JsonConvert.DeserializeObject(jsonString);
-                MessageBox.Show(json.Value<string>("status"));
+                //MessageBox.Show(json.Value<string>("status"));
                 return json.Value<string>("status");
 
             }
@@ -451,7 +442,7 @@ namespace FELM
 
                 var jsonString = await response.Content.ReadAsStringAsync();
                 var json = (JObject)JsonConvert.DeserializeObject(jsonString);
-                MessageBox.Show(json.Value<string>("username"));
+                //MessageBox.Show(json.Value<string>("username"));
                 return json.Value<string>("username");
 
             }

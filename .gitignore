@@ -259,3 +259,10 @@ FELM/obj/Debug/DesignTimeResolveAssemblyReferences.cache
 FELM/obj/Debug/FELM.csprojAssemblyReference.cache
 FELM/obj/Debug/FELM.exe
 FELM/obj/Debug/FELM.pdb
+*.exe
+*.pdb
+*.cache
+*.cache
+*.exe
+*.pdb
+.vs/FELM/v16/.suo
