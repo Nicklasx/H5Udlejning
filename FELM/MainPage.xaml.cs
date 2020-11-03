@@ -458,6 +458,7 @@ namespace FELM
         {
             AddUserBorderBox.Visibility = Visibility.Visible;
             AddUserStackpanel.Visibility = Visibility.Visible;
+            test.Visibility = Visibility.Visible;
             Button button = sender as Button;
 
             string arr = button.Name;
@@ -481,9 +482,65 @@ namespace FELM
         {
             AddUserBorderBox.Visibility = Visibility.Visible;
             AddUserStackpanel.Visibility = Visibility.Visible;
+            test.Visibility = Visibility.Hidden;
         }
 
-       
+        private async void DeleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            string user = USerNameTextBox.Text;
+            var slet = await delete("deleteUser", user);
+            MessageBox.Show(slet.ToString());
+            UserListStack.Visibility = Visibility.Hidden;
+            UserListStack.Visibility = Visibility.Visible;
+
+        }
+        public class deleteUser
+        {
+            private string _Function;
+            private string _Username;
+
+            public string function
+            {
+                get { return _Function; }
+                set { _Function = value; }
+            }
+
+            public string username
+            {
+                get { return _Username; }
+                set { _Username = value; }
+            }
+        }
+        public async Task<object> delete(string function, string username)
+        {
+            HttpClient client = new HttpClient();
+            string apiUrl = ConfigurationManager.AppSettings["Api"];
+            client.BaseAddress = new Uri(apiUrl);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            deleteUser delete = new deleteUser();
+            delete.function = function;
+            delete.username = username;
+
+            var serializedProduct = JsonConvert.SerializeObject(delete);
+
+            var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PostAsync(apiUrl, content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var json = (JObject)JsonConvert.DeserializeObject(jsonString);
+                //MessageBox.Show(json.Value<string>("username"));
+                return  USerNameTextBox.Text + " has been deleted";
+
+            }
+            else
+            {
+
+                return false;
+            }
+        }
     }
     class UserToList
     {

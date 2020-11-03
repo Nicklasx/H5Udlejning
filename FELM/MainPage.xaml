@@ -309,6 +309,28 @@
                             </Border>
                         </DockPanel>
 
+                        <DockPanel Name="test" Grid.Column="1" Grid.Row="1" >
+                            <Label
+                                Name="Delete"
+                                Content="Delete:"
+                                Foreground="#FF008D7A"
+                                HorizontalContentAlignment="Left"
+                                VerticalContentAlignment="Center"
+                                Margin="10,1"
+                                DockPanel.Dock="Left"
+                                >
+                            </Label>
+                            <Border
+                                Padding="5"
+                                CornerRadius="5"
+                                BorderBrush="LightGray"
+                                SnapsToDevicePixels="True"
+                                Margin="0,5"
+                                >
+                                <Button Content="Delete"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" Click="DeleteUser_Click" ></Button>
+                            </Border>
+                        </DockPanel>
+
                         <DockPanel Grid.Column="0" Grid.Row="1">
                             <Label 
                                 Name="ContaPhoneNr" 
