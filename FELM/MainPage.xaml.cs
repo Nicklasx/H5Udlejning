@@ -490,8 +490,6 @@ namespace FELM
             string user = USerNameTextBox.Text;
             var slet = await delete("deleteUser", user);
             MessageBox.Show(slet.ToString());
-            UserListStack.Visibility = Visibility.Hidden;
-            UserListStack.Visibility = Visibility.Visible;
 
         }
         public class deleteUser
