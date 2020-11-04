@@ -131,7 +131,7 @@
                     Margin="15,10"
                     Background="#FF009B88">
 
-                        <Button Content="Delete User"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" ></Button>
+                        <Button  Content="Delete User"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" ></Button>
                     </Border>
                     <Border 
                     Padding="5" 
@@ -152,7 +152,7 @@
                     HorizontalAlignment="Stretch" 
                     Height="Auto" Width="Auto"  
                     Background="White">
-
+                    
                 </StackPanel>
             </DockPanel>
             <Border

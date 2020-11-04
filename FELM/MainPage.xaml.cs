@@ -486,10 +486,12 @@ namespace FELM
         }
 
         private async void DeleteUser_Click(object sender, RoutedEventArgs e)
-        {
-            string user = USerNameTextBox.Text;
-            var slet = await delete("deleteUser", user);
+        {   
+            var slet = await delete("deleteUser", USerNameTextBox.Text);
             MessageBox.Show(slet.ToString());
+            MessageBox.Show(UserListStack.Children.Count.ToString());
+            var test = UserListStack.Children.IndexOf(FindName(slet.ToString()) as UIElement);
+            MessageBox.Show(test.ToString());
 
         }
         public class deleteUser
@@ -530,7 +532,7 @@ namespace FELM
                 var jsonString = await response.Content.ReadAsStringAsync();
                 var json = (JObject)JsonConvert.DeserializeObject(jsonString);
                 //MessageBox.Show(json.Value<string>("username"));
-                return  USerNameTextBox.Text + " has been deleted";
+                return  username;
 
             }
             else
