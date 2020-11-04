@@ -5,18 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FELM"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+       d:DesignHeight="720" d:DesignWidth="1280"
       Title="ScanPage">
 
     <Grid>
         <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="Black" Offset="0"/>
-                <GradientStop Color="#FFFF00D1" Offset="1"/>
-            </LinearGradientBrush>
+            <ImageBrush ImageSource="Pic/festival_1.png"/>
         </Grid.Background>
-        
-        <Grid>
+        <Grid Margin="2,0,-2,0">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -32,34 +28,271 @@
 
             <Grid Grid.Row="0"
                   Grid.Column="0"
-            />
-            <Grid Grid.Row="1"
-                  Grid.Column="0"
-            />
-            <Grid Grid.Row="2"
-                  Grid.Column="0"
-            />
-            <Grid Grid.Row="0"
-                  Grid.Column="1"
-            />
-            <Grid Grid.Row="1"
-                  Grid.Column="1"
-            />
-            <Grid Grid.Row="2"
-                  Grid.Column="1"
-            />
-            <Grid Grid.Row="0"
-                  Grid.Column="2"
-            />
-            <Grid Grid.Row="1"
-                  Grid.Column="2"
-            />
-            <Grid Grid.Row="2"
-                  Grid.Column="2"
-            />
-            <Button Grid.Row="1" Grid.Column="1" Content="Button" Name="ScanBackBtn" HorizontalAlignment="Center" VerticalAlignment="Center" Width="109"  Height="35" Click="ScanBackBtn_Click"/>
+            >
+                <Grid.Background>
+                    <ImageBrush ImageSource="logo_festival-el.png"/>
+                </Grid.Background>
             </Grid>
+            <Grid Grid.Row="1"
+                  Grid.Column="0"
+            >
+            </Grid>
+            <Grid Grid.Row="2"
+                  Grid.Column="0"
+            />
+            <Grid Grid.Row="0"
+                  Grid.Column="1"
+            />
+            <Grid Grid.Row="1"
+                  Grid.Column="1"
+                  
+            />
+            <Grid Grid.Row="2"
+                  Grid.Column="1"
+            />
+            <Grid Grid.Row="0"
+                  Grid.Column="2"
+            />
+            <Grid Grid.Row="1"
+                  Grid.Column="2"
+            />
+            <Grid Grid.Row="2"
+                  Grid.Column="2"
+            />
+
+
+            <!--1. grid-->
+            <Border
+                Grid.Row="1"
+                Grid.Column="0"
+                
+                Name="borderbox1"
+                Padding="1" 
+                CornerRadius="25" 
+                BorderThickness="0" 
+                BorderBrush="#FF008D7A" 
+                SnapsToDevicePixels="True"
+                Background="#FF002657"
+                Opacity="0.5">
+
+                <Border.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Border.Effect>
+
+            </Border>
+
+
+            <DockPanel Grid.Row="1" 
+                       Grid.Column="0"
+                       >
+                <!-- venstre side af nr 1 panel-->
+                <Label DockPanel.Dock="Top" 
+                   Content="Events"
+                   FontSize="24"
+                   Foreground="#FF009B88">
+
+                </Label>
+
+                <StackPanel
+                    Name="Eventlistforbuttons"
+                    Margin="5,5"  
+                    DockPanel.Dock="Left" 
+                    HorizontalAlignment="Stretch" 
+                    Height="Auto" Width="209"  
+                    Background="White">
+
+                </StackPanel>
+
+                <!-- Højre side af nr 1 panel-->
+                <StackPanel DockPanel.Dock="Right"
+                            >
+
+                </StackPanel>
+            </DockPanel>
+
+
+            <!--  2. grid  -->
+            <Border
+              
+                Grid.Row="1"
+                Grid.Column="1"
+                Name="BorderBox2"
+                Padding="1" 
+                CornerRadius="25" 
+                BorderThickness="0" 
+                BorderBrush="#FF008D7A" 
+                SnapsToDevicePixels="True"
+                Background="#FF002657"
+                Opacity="0.5"
+                Visibility="Visible">
+
+
+
+                <Border.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Border.Effect>
+            </Border>
+
+
+            <!-- 3. grid    -->
+            <Border
+              
+                Grid.Row="1"
+                Grid.Column="2"
+                Name="BorderBox3"
+                Padding="1" 
+                CornerRadius="25" 
+                BorderThickness="0" 
+                BorderBrush="#FF008D7A" 
+                SnapsToDevicePixels="True"
+                Background="#FF002657"
+                Opacity="0.5"
+                Visibility="Visible">
+
+
+
+                <Border.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Border.Effect>
+            </Border>
+
+
+            <DockPanel Grid.Column="2" Grid.Row="1" >
+               
+                <Label Content="Lager"
+                       DockPanel.Dock="Top"
+                       FontSize="24"
+                       Foreground="#FF009B88">
+
+                </Label>
+                 <!-- list views skal laves dynamisk -->
+                
+                <ListView Name="KabelView" DockPanel.Dock="Left" Width="300" Margin="0,0,0,42"  >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name:" Width="75" DisplayMemberBinding="{Binding Kabelname }"></GridViewColumn>
+                            <GridViewColumn Header="Length:" Width="75" DisplayMemberBinding="{Binding KabelLenght }"></GridViewColumn>
+                            <GridViewColumn Header="Volt:" Width="75" DisplayMemberBinding="{Binding Volt }"></GridViewColumn>
+                            <GridViewColumn Header="Antal:" Width="75" DisplayMemberBinding="{Binding Antal }"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                    
+                </ListView>
+
+                 <ListView Name="SpeekerView" DockPanel.Dock="Left" Width="300" Margin="0,0,0,42" Visibility="Collapsed" >
+                     <ListView.View>
+                         <GridView>
+                             <GridViewColumn Header="Name:" Width="75" DisplayMemberBinding="{Binding SpeekerName }"></GridViewColumn>
+                             <GridViewColumn Header="Size:" Width="75" DisplayMemberBinding="{Binding SpeekerSize }"></GridViewColumn>
+                             <GridViewColumn Header="Watt:" Width="75" DisplayMemberBinding="{Binding Watt }"></GridViewColumn>
+                             <GridViewColumn Header="Antal:" Width="75" DisplayMemberBinding="{Binding Antal }"></GridViewColumn>
+                         </GridView>
+                     </ListView.View>
+
+                 </ListView>
+
+                 <ListView Name="LightsView" DockPanel.Dock="Left" Width="300" Margin="0,0,0,42" Visibility="Collapsed" >
+                     <ListView.View>
+                         <GridView>
+                             <GridViewColumn Header="Name:" Width="60" DisplayMemberBinding="{Binding LightName }"></GridViewColumn>
+                             <GridViewColumn Header="Length:" Width="60" DisplayMemberBinding="{Binding LightLength }"></GridViewColumn>
+                             <GridViewColumn Header="Bolts:" Width="60" DisplayMemberBinding="{Binding NumberOfBolths }"></GridViewColumn>
+                             <GridViewColumn Header="Antal:" Width="60" DisplayMemberBinding="{Binding Antal }"></GridViewColumn>
+                             <GridViewColumn Header="Add:" Width="60" DisplayMemberBinding="{Binding Add }"></GridViewColumn>
+
+
+                        </GridView>
+                     </ListView.View>
+
+                 </ListView>
+
+                <StackPanel DockPanel.Dock="Bottom"  Margin="-107,10,126,10">
+                    <ComboBox>
+                        <ComboBoxItem Name="add">
+                            <StackPanel Orientation="Horizontal">
+                                 
+                                <Button Foreground="Red" 
+                                        Click="Kabel_OnClick" 
+                                        Content="Kabel Liste"></Button>
+                            </StackPanel>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <StackPanel Orientation="Horizontal">
+
+                                <Button Foreground="Green" 
+                                        Click="Speeker_OnClick" 
+                                        Content="Speeker Liste"></Button>
+                            </StackPanel>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <StackPanel Orientation="Horizontal">
+
+                                <Button Foreground="Blue" 
+                                        Click="Lights_OnClick" 
+                                        Content="Lys liste"></Button>
+                            </StackPanel>
+                        </ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+
+
+
+
+
+
+                <Grid DockPanel.Dock="Right">
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel Grid.Column="0"  Width="Auto" Background="Black" Opacity="0.4">
+
+                    </StackPanel>
+                    <ListView Grid.Column="1" Name="ListViewOfShop"></ListView>
+                </Grid>
+
+
+
+
+
+
+
+
+
+            </DockPanel>
+
+            <DockPanel Grid.Column="1" Grid.Row="1" >
+
+                <Label Content="Ude"
+                       DockPanel.Dock="Top"
+                       FontSize="24"
+                       Foreground="#FF009B88">
+
+                </Label>
+                <!-- list views skal laves dynamisk -->
+
+                <ListView Name="KabelViw" DockPanel.Dock="Left" Width="400" Margin="0,0,0,42"  >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name:" Width="66" DisplayMemberBinding="{Binding Kabelname }"></GridViewColumn>
+                            <GridViewColumn Header="Length:" Width="66" DisplayMemberBinding="{Binding KabelLenght }"></GridViewColumn>
+                            <GridViewColumn Header="Volt:" Width="66" DisplayMemberBinding="{Binding Volt }"></GridViewColumn>
+                            <GridViewColumn Header="Antal:" Width="66" DisplayMemberBinding="{Binding Antal }"></GridViewColumn>
+                            <GridViewColumn Header="Anl:" Width="66" DisplayMemberBinding="{Binding Antal }"></GridViewColumn>
+                            <GridViewColumn Header="Add:" Width="66">
+                                
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                    </ListView>
+            </DockPanel>
 
 
         </Grid>
+       
+
+    </Grid>
 </Page>
