@@ -131,7 +131,7 @@
                     Margin="15,10"
                     Background="#FF009B88">
 
-                        <Button  Content="Delete User"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" ></Button>
+                        <Button Content="Delete User"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" ></Button>
                     </Border>
                     <Border 
                     Padding="5" 
@@ -152,7 +152,7 @@
                     HorizontalAlignment="Stretch" 
                     Height="Auto" Width="Auto"  
                     Background="White">
-                    
+
                 </StackPanel>
             </DockPanel>
             <Border
@@ -286,56 +286,26 @@
                         </DockPanel>
 
                         <DockPanel Grid.Column="1" Grid.Row="0">
-                            <Label
-                                Name="Userpassword"
-                                Content="Password:"
+                            <Label 
+                                Name="Userpassword" 
+                                Content="Password:" 
                                 Foreground="#FF008D7A"
-                                HorizontalContentAlignment="Left"
+                                HorizontalContentAlignment="Left" 
                                 VerticalContentAlignment="Center"
                                 Margin="10,1"
                                 DockPanel.Dock="Left"
-                                >
+                                 >
                             </Label>
-                            <Border
-                                Padding="5"
-                                CornerRadius="5"
-                                BorderThickness="1"
-                                BorderBrush="LightGray"
-                                SnapsToDevicePixels="True"
+                            <Border 
+                                Padding="5" 
+                                CornerRadius="5" 
+                                BorderThickness="1" 
+                                BorderBrush="LightGray" 
+                                SnapsToDevicePixels="True" 
                                 Background="White"
                                 Margin="0,5"
                                 >
-                                <TextBox Name="UserPassswordTextBox" BorderBrush="Transparent" ></TextBox>
-                            </Border>
-                        </DockPanel>
-
-                        <DockPanel Name="test" Grid.Column="1" Grid.Row="1" >
-                            <Label
-                                Name="Delete"
-                                Content="Delete:"
-                                Foreground="#FF008D7A"
-                                HorizontalContentAlignment="Left"
-                                VerticalContentAlignment="Center"
-                                Margin="10,1"
-                                DockPanel.Dock="Left"
-                                >
-                            </Label>
-                            <Border
-                                Padding="5"
-                                CornerRadius="5"
-                                BorderBrush="LightGray"
-                                SnapsToDevicePixels="True"
-                                Margin="0,5"
-                                >
-                                <Button x:Name="Hejsa"
-                                        Content="Delete"  
-                                        Background="#FF009B88" 
-                                        BorderBrush="Transparent" 
-                                        Height="Auto" 
-                                        Width="Auto" 
-                                        Click="DeleteUser_Click" >
-                                    
-                                </Button>
+                                <TextBox Name="UserPassswordTextBox"  BorderBrush="Transparent" ></TextBox>
                             </Border>
                         </DockPanel>
 
@@ -389,7 +359,7 @@
                     </Border>
                     <!--CheckBox for Normal User or admin-->
                     <StackPanel Margin="10" HorizontalAlignment="Center">
-                        <Label FontWeight="Bold" Foreground="#FF009B88" Content="User Rights" HorizontalAlignment="Center"></Label>
+                        <Label FontWeight="Bold" Foreground="#FF009B88" Content="User Rights" HorizontalAlignment="Center" ></Label>
                         <CheckBox Name="AdminChechBOx" Foreground="#FF009B88" Content="Administrator" ></CheckBox>
                         <CheckBox Name="UserCheckBox" Foreground="#FF009B88" Content="User" ></CheckBox>
 
@@ -405,7 +375,7 @@
                     Margin="15,10"
                     Background="#FF009B88">
 
-                    <Button Content="Submit"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" Click="SummitUser_Click" ></Button>
+                    <Button Content="Summit"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" Click="SummitUser_Click" ></Button>
                 </Border>
 
             </StackPanel>

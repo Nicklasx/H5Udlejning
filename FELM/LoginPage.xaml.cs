@@ -53,6 +53,11 @@ namespace FELM
             }
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(Pages.p4);
+        }
     }
     public class LoginMechanics
     {
@@ -114,6 +119,7 @@ namespace FELM
                
                 var jsonString = await response.Content.ReadAsStringAsync();
                 var json = (JObject)JsonConvert.DeserializeObject(jsonString);
+               
                 return json.Value<string>("status");
 
             }
