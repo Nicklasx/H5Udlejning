@@ -207,17 +207,10 @@ namespace FELM
 
         private void SummitUser_Click(object sender, RoutedEventArgs e)
         {
-           
-
             
             var regexItem = new Regex("^[a-zA-Z0-9]*$");//Check id chars in username is within the given specs
 
             string WithoutspicialChars = USerNameTextBox.Text;
-
-
-
-
-
 
             //controles if the checkbox for admin or user in null and witch one it is
             if (AdminChechBOx.IsChecked == true || UserCheckBox.IsChecked == true)
@@ -251,6 +244,8 @@ namespace FELM
             
             async void runRest()// run if checkbox  controle is in order
             {
+
+
                 if (regexItem.IsMatch(WithoutspicialChars))// checkes there are no special chars in Username
                 {
                     var svar = await users("selectOneUser", USerNameTextBox.Text);
@@ -268,13 +263,21 @@ namespace FELM
                     button.Background = (Brush)bc.ConvertFrom("#FF009B88"); //BackGround color for NEw button
 
                     string WithoutWhitespace = WithoutspicialChars.Replace(" ", "");// remove Whitepace
+
+
                     
+
                     button.Name = WithoutWhitespace;
-                        string username = svar.ToString();
-                        string name = (string)await selectInfo("selectInfo", username, "name");
-                        string password = (string)await selectInfo("selectInfo", username, "password");
-                        string phone = (string)await selectInfo("selectInfo", username, "phone");
-                        usertolist.Add(new UserToList() { EventName = username, Name = name, Phone = phone, Password = password });
+                   
+
+
+
+
+                    string username = svar.ToString();
+                    string name = (string)await selectInfo("selectInfo", username, "name");
+                    string password = (string)await selectInfo("selectInfo", username, "password");
+                    string phone = (string)await selectInfo("selectInfo", username, "phone");
+                    usertolist.Add(new UserToList() { EventName = username, Name = name, Phone = phone, Password = password });
 
                     USerNameTextBox.Clear();
                     ContacUSerNameTextBox.Clear();
@@ -290,6 +293,7 @@ namespace FELM
                     MessageBox.Show("User Name cannot contain special Chareters or space");
                 }
             }
+            
         }
 
         public class insertUser
@@ -489,6 +493,30 @@ namespace FELM
         {
             var slet = await delete("deleteUser", USerNameTextBox.Text);
             MessageBox.Show(slet.ToString() + "has been deleted");
+            string btn = USerNameTextBox.Text;
+            // Checkes with DElete Button push if the button name is still i the stackpanel and if so deletes it. 
+            List<Button> remove = new List<Button>();
+
+            foreach (var children in UserListStack.Children)
+            {
+                if ((children.GetType() == typeof(Button)))
+                {
+                    if ((children as Button).Name == btn)
+                        remove.Add(children as Button);
+                }
+            }
+            foreach (var ch in remove)
+            {
+                UserListStack.Children.Remove(ch as Button);
+            }
+
+            USerNameTextBox.Clear();
+            ContacUSerNameTextBox.Clear();
+            UserPassswordTextBox.Clear();
+            ContacUserPhoneNrTextBox.Clear();
+
+            AddUserStackpanel.Visibility = Visibility.Collapsed;
+            AddUserBorderBox.Visibility = Visibility.Collapsed;
 
 
         }

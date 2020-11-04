@@ -129,3 +129,31 @@ C:\Users\Pihl\Documents\GitHub\H5Udlejning\FELM\obj\Debug\FELM.csproj.CoreCompil
 C:\Users\Pihl\Documents\GitHub\H5Udlejning\FELM\obj\Debug\FELM.csproj.CopyComplete
 C:\Users\Pihl\Documents\GitHub\H5Udlejning\FELM\obj\Debug\FELM.exe
 C:\Users\Pihl\Documents\GitHub\H5Udlejning\FELM\obj\Debug\FELM.pdb
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\bin\Debug\FELM.exe.config
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\bin\Debug\FELM.exe
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\bin\Debug\FELM.pdb
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\bin\Debug\Newtonsoft.Json.dll
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\bin\Debug\Newtonsoft.Json.xml
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\FELM.csprojAssemblyReference.cache
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\EventPage.g.cs
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\LoginPage.g.cs
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\MainPage.g.cs
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\MainWindow.g.cs
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\ScanPage.g.cs
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\UserPage.g.cs
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\App.g.cs
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\FELM_MarkupCompile.cache
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\FELM_MarkupCompile.lref
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\EventPage.baml
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\LoginPage.baml
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\MainPage.baml
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\MainWindow.baml
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\ScanPage.baml
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\UserPage.baml
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\FELM.g.resources
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\FELM.Properties.Resources.resources
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\FELM.csproj.GenerateResource.cache
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\FELM.csproj.CoreCompileInputs.cache
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\FELM.csproj.CopyComplete
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\FELM.exe
+D:\H5 3 ugers\Testgit\H5Udlejning\FELM\obj\Debug\FELM.pdb

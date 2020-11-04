@@ -327,7 +327,15 @@
                                 SnapsToDevicePixels="True"
                                 Margin="0,5"
                                 >
-                                <Button Content="Delete"  Background="#FF009B88" BorderBrush="Transparent" Height="Auto" Width="Auto" Click="DeleteUser_Click" ></Button>
+                                <Button x:Name="Hejsa"
+                                        Content="Delete"  
+                                        Background="#FF009B88" 
+                                        BorderBrush="Transparent" 
+                                        Height="Auto" 
+                                        Width="Auto" 
+                                        Click="DeleteUser_Click" >
+                                    
+                                </Button>
                             </Border>
                         </DockPanel>
 
