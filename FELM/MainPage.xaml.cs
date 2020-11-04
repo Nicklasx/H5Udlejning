@@ -486,9 +486,10 @@ namespace FELM
         }
 
         private async void DeleteUser_Click(object sender, RoutedEventArgs e)
-        {   
+        {
             var slet = await delete("deleteUser", USerNameTextBox.Text);
             MessageBox.Show(slet.ToString() + "has been deleted");
+
 
         }
         public class deleteUser
